@@ -29,7 +29,8 @@ infra/.terraform/
 *.tfstate
 *.tfstate.*
 *.tfvars
-terraform/   # stray clone of the Terraform source repo; our infra lives in infra/
+# stray clone of the Terraform source repo; our infra lives in infra/
+terraform/
 
 # Serving store / data artifacts
 serving_store/
