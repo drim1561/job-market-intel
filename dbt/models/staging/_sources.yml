@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: raw_jobs
+    database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+    schema: RAW
+    description: "dlt landing zone. All sources share the canonical schema, so they all land in one table."
+    tables:
+      - name: job_postings
+        description: "Append-only canonical postings published by ingest/ and loaded by dlt."
+        # dlt adds _dlt_load_id / _dlt_id and may rename on schema evolution; we read defensively in staging.

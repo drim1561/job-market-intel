@@ -1,0 +1,24 @@
+{
+  "_comment": "Candidate profile used for fit-scoring. Copy to profile.json and edit. This is the 'data' you swap to retarget the system; no engine code references a real name/email.",
+  "target_titles": [
+    "Analytics Engineer",
+    "Senior Data Analyst",
+    "Product Analyst",
+    "BI Analyst",
+    "Data Engineer (analytics-leaning)"
+  ],
+  "core_stack": [
+    "SQL", "Python", "dbt", "Snowflake", "BigQuery", "LookML", "Looker",
+    "Tableau", "Airflow", "Dagster", "Segment", "Salesforce", "Git"
+  ],
+  "experience_years": 6,
+  "seniority": ["mid", "senior"],
+  "salary_floor_usd": 140000,
+  "locations": ["Remote", "Washington DC", "Northern Virginia"],
+  "remote_preference": "remote_or_dc_hybrid",
+  "_dealbreakers_note": "Conditions that DISQUALIFY a role (the fit-scorer rejects a posting if any apply).",
+  "dealbreakers": [
+    "onsite-only outside the DC metro",
+    "role has no analytics/data-engineering work (no SQL, dbt, or data warehouse)"
+  ]
+}

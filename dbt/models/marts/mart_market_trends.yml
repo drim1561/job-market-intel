@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: mart_market_trends
+    description: "Market volume + composition per ingest day (trend line as the pipeline runs)."
+    columns:
+      - name: snapshot_date
+        data_tests: [unique, not_null]

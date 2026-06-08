@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: int_job_lifecycle
+    description: "Repost history per logical role: first/last seen, repost_count, days_span, is_active."
+    columns:
+      - name: posting_key
+        data_tests: [unique, not_null]
+      - name: first_seen
+        data_tests: [not_null]
+      - name: last_seen
+        data_tests: [not_null]
+      - name: repost_count
+        data_tests: [not_null]

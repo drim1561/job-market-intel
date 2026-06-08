@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: int_jobs_resolved
+    description: "One current row per logical role (latest snapshot per posting_key)."
+    columns:
+      - name: posting_key
+        data_tests: [unique, not_null]

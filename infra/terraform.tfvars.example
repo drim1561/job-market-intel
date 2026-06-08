@@ -1,0 +1,9 @@
+# Copy to terraform.tfvars and edit. terraform.tfvars is gitignored.
+# grant_to_user must match your Snowflake login user (uppercase as Snowflake stores it).
+grant_to_user        = "YOUR_SNOWFLAKE_USER"
+
+# Optional overrides (defaults shown):
+# warehouse_name       = "JOB_MARKET_WH"
+# database_name        = "JOB_MARKET"
+# role_name            = "JOB_MARKET_ROLE"
+# monthly_credit_quota = 5

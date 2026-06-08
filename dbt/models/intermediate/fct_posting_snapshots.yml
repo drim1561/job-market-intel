@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: fct_posting_snapshots
+    description: "Incremental append-only snapshot history; one row per observed listing snapshot."
+    columns:
+      - name: snapshot_id
+        description: "md5(listing_id|ingested_at). De-dupes exact re-loads."
+        data_tests: [unique, not_null]
+      - name: posting_key
+        data_tests: [not_null]

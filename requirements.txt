@@ -1,0 +1,26 @@
+# Ingestion
+requests>=2.32
+pyyaml>=6.0
+python-dotenv>=1.0
+dlt[snowflake]>=1.5
+confluent-kafka>=2.6        # Redpanda is Kafka-API compatible
+
+# Transformation
+dbt-snowflake>=1.8
+sqlfluff>=3.2
+
+# Orchestration
+dagster>=1.9
+dagster-dbt>=0.25
+
+# AI
+anthropic>=0.40
+
+# ML
+scikit-learn>=1.5
+pandas>=2.2
+pyarrow>=17.0              # Parquet serving store
+duckdb>=1.1               # local serving-store option
+
+# Serving / app
+streamlit>=1.40

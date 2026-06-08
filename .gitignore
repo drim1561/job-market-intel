@@ -1,0 +1,50 @@
+# Secrets / local config
+.env
+profile.json
+*.local.*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# dlt
+.dlt/
+*.duckdb
+*.duckdb.wal
+
+# dbt
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+logs/
+.user.yml
+
+# Terraform
+infra/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+terraform/   # stray clone of the Terraform source repo; our infra lives in infra/
+
+# Serving store / data artifacts
+serving_store/
+*.parquet
+data/
+
+# Dagster
+.dagster/
+tmp_dagster*/
+
+# Evidence
+reports/.evidence/
+reports/node_modules/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: mart_salary_benchmarks
+    description: "Salary distribution by role category and remote status over current postings."
+    columns:
+      - name: role_category
+        data_tests: [not_null]

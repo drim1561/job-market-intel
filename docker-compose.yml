@@ -1,0 +1,31 @@
+# Local Redpanda (Kafka-API compatible) single node + console.
+# Start: docker compose up -d   |   Console: http://localhost:8080
+services:
+  redpanda:
+    image: redpandadata/redpanda:latest
+    container_name: jmi-redpanda
+    command:
+      - redpanda
+      - start
+      - --smp=1
+      - --overprovisioned
+      - --node-id=0
+      - --kafka-addr=PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:19092
+      - --advertise-kafka-addr=PLAINTEXT://redpanda:29092,OUTSIDE://localhost:19092
+    ports:
+      - "19092:19092"   # external Kafka API (use REDPANDA_BROKERS=localhost:19092)
+      - "9644:9644"     # admin API
+    volumes:
+      - redpanda-data:/var/lib/redpanda/data
+
+  console:
+    image: redpandadata/console:latest
+    container_name: jmi-redpanda-console
+    depends_on: [redpanda]
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_BROKERS: redpanda:29092
+
+volumes:
+  redpanda-data: {}

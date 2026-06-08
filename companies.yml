@@ -1,0 +1,28 @@
+# Target companies for the ATS source. Each entry: an ATS provider + the board slug
+# in the public ATS API URL:
+#   greenhouse: https://boards-api.greenhouse.io/v1/boards/{slug}/jobs
+#   lever:      https://api.lever.co/v0/postings/{slug}?mode=json
+#   ashby:      https://api.ashbyhq.com/posting-api/job-board/{slug}
+#
+# Slugs below were verified live (return a JSON jobs list). Add more anytime by
+# confirming the URL returns JSON first. Adzuna already gives broad market coverage,
+# so this list is for deep, full-JD-text coverage of specific companies.
+companies:
+  - name: Stripe
+    ats: greenhouse
+    slug: stripe
+  - name: Databricks
+    ats: greenhouse
+    slug: databricks
+  - name: Anthropic
+    ats: greenhouse
+    slug: anthropic
+  - name: Datadog
+    ats: greenhouse
+    slug: datadog
+  - name: Ramp
+    ats: ashby
+    slug: ramp
+  - name: OpenAI
+    ats: ashby
+    slug: openai

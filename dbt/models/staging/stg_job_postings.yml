@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: stg_job_postings
+    description: "Typed, cleaned canonical postings (one row per raw snapshot). Computes posting_key + listing_id."
+    columns:
+      - name: posting_key
+        description: "Entity-resolution key (company|title|location, normalized); mirrors ingest/schema.py."
+        data_tests: [not_null]
+      - name: listing_id
+        description: "source:source_posting_id — one physical listing."
+        data_tests: [not_null]
+      - name: source
+        data_tests: [not_null]

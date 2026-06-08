@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: mart_posting_lifecycle
+    description: "Clean list: one row per logical role with full repost history + ghost flag."
+    columns:
+      - name: posting_key
+        data_tests: [unique, not_null]
+      - name: is_active
+        data_tests: [not_null]
+      - name: ghost_suspected
+        data_tests: [not_null]
