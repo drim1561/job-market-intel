@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: int_job_skills
+    description: "Long table: one row per (posting_key, skill), flattened from extracted skills."
+    columns:
+      - name: posting_key
+        data_tests: [not_null]
+      - name: skill
+        data_tests: [not_null]

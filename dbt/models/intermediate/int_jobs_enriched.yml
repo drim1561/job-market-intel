@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: int_jobs_enriched
+    description: "Deduped postings + Claude-extracted fields (skills, seniority, remote_type, role_category)."
+    columns:
+      - name: posting_key
+        data_tests: [unique, not_null]
+      - name: remote_type
+        data_tests: [not_null]

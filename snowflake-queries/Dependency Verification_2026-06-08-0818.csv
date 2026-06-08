@@ -1,0 +1,34 @@
+POSTING_KEY,ROLE_CATEGORY,SENIORITY,REMOTE_TYPE,MIN_YEARS_EXPERIENCE,SKILLS
+netapp|product-data-management-change-analyst|wichita-sedgwick-county,Data Analyst,unknown,unknown,,[]
+cvs-health|data-engineer|south-natick-middlesex-county,Data Engineer,senior,unknown,,[]
+openai|analytics-automation-user-safety-risk-operations|san-francisco,Other,lead,hybrid,12,"[
+  ""SQL"",
+  ""LLM"",
+  ""Airflow""
+]"
+department-of-energy-agency-wide|management-and-program-analyst|washington-district-of-columbia,Other,mid,onsite,,[]
+u-s-marine-corps|financial-management-analyst|marine-corps-air-station-miramar-california,Other,unknown,onsite,,[]
+highmark-health|data-engineer|state-house-lancaster-county,Data Engineer,senior,unknown,,"[
+  ""Python"",
+  ""SQL"",
+  ""Apache Spark"",
+  ""Airflow"",
+  ""AWS"",
+  ""Snowflake""
+]"
+steadily|insurance-product-analyst|overland-park-johnson-county,Other,mid,onsite,,[]
+wellington-management|product-reporting-analyst|boston-suffolk-county,Data Analyst,mid,onsite,3,"[
+  ""SQL"",
+  ""Excel"",
+  ""Tableau"",
+  ""Python""
+]"
+uline|bi-analytics-engineer|pleasant-prairie-kenosha-county,BI,mid,onsite,,"[
+  ""SQL"",
+  ""Tableau"",
+  ""Power BI"",
+  ""Python"",
+  ""Snowflake"",
+  ""dbt""
+]"
+department-of-air-force-agency-wide|prevention-specialist|multiple-locations,Other,unknown,onsite,,[]

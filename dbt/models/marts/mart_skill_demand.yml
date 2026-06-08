@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: mart_skill_demand
+    description: "Skill demand: postings + companies mentioning each skill, split by AE/DE."
+    columns:
+      - name: skill
+        data_tests: [unique, not_null]
