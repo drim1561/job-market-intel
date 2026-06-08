@@ -11,3 +11,5 @@ sources:
         # dlt adds _dlt_load_id / _dlt_id and may rename on schema evolution; we read defensively in staging.
       - name: job_enrichment
         description: "Claude-extracted fields per posting_key (skills, seniority, remote_type, role_category), written by ai/extract.py."
+      - name: job_fit
+        description: "Claude fit score + verdict + reason per posting_key vs the candidate profile, written by ai/fit_score.py."

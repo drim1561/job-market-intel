@@ -1,33 +1,36 @@
 # Build Status
 
-Working plan lives at: `C:\Users\Teddy\.claude\plans\so-what-have-i-dapper-cookie.md`
+Working plan: `C:\Users\Teddy\.claude\plans\so-what-have-i-dapper-cookie.md`
 
-## Done (authored; not yet run)
-- Repo scaffold: README, .gitignore, .env.example, requirements.txt, docker-compose.yml (Redpanda), profile.example.json, companies.yml. Git initialized on `main`.
-- Canonical schema + entity-resolution key: `ingest/schema.py` (posting_key MERGES reposts; lifecycle counts them).
-- Ingest: `ingest/producer.py`, `ingest/sources/{adzuna,usajobs,ats}.py`, `ingest/dlt_pipeline.py`.
-- Terraform infra: `infra/*.tf` (XS warehouse, db, RAW + ANALYTICS schemas, role, credit-cap resource monitor).
-- dbt core (Snowflake-native): `dbt/` project + profiles + packages + staging + `fct_posting_snapshots` (incremental) + `int_jobs_resolved` + `int_job_lifecycle` (repost counting) + `mart_posting_lifecycle` (clean list + ghost flag) + tests.
+## Working end-to-end (committed)
+- **Ingest:** `ingest/` — Adzuna/USAJobs/ATS -> Redpanda -> dlt -> Snowflake `RAW.JOB_POSTINGS` (~1,061 rows).
+- **Infra:** `infra/` Terraform (XS warehouse, db, RAW + ANALYTICS schemas, role, credit-cap monitor) — applied.
+- **dbt (Snowflake):** staging -> `fct_posting_snapshots` (incremental) -> `int_jobs_resolved` / `int_job_lifecycle` (repost counting) -> marts: `mart_posting_lifecycle` (ghost flag), `mart_market_trends`, `mart_salary_benchmarks` (junk-salary filtered).
+- **AI extraction (Phase 4):** `ai/extract.py` (Claude Haiku, rate-limited 45/min, concurrent, cached) -> `RAW.JOB_ENRICHMENT`. dbt: `int_jobs_enriched`, `int_job_skills` (+ `skill_aliases` seed), `mart_skill_demand` (AE/DE split).
+- Cortex SQL functions NOT available on trial -> extraction uses the Claude API.
 
-## Your setup tasks (free)
-- [ ] Adzuna account -> ADZUNA_APP_ID / ADZUNA_APP_KEY
-- [ ] USAJobs account -> USAJOBS_API_KEY / USAJOBS_USER_AGENT (your email)
-- [ ] Anthropic API key -> ANTHROPIC_API_KEY
-- [ ] Snowflake (have it): collect SNOWFLAKE_ACCOUNT / USER / PASSWORD
-- [ ] Install Docker Desktop (running) + Terraform CLI
-- [ ] `copy .env.example .env` and fill it in (edit .env, NOT .env.example)
-- [ ] `copy infra\terraform.tfvars.example infra\terraform.tfvars`; set grant_to_user (UPPERCASE Snowflake user)
-- [ ] (optional) verify ATS slugs in companies.yml
+## In progress
+- **Phase 4 fit-scoring:** `ai/fit_score.py` -> `RAW.JOB_FIT`; then `mart_active_jobs` (fit-ranked matches).
 
-## Run sequence (once accounts + .env are ready)
-1. `python -m venv .venv` then `.venv\Scripts\activate` then `pip install -r requirements.txt`
-2. Set SNOWFLAKE_ACCOUNT/USER/PASSWORD as env vars, then in `infra/`: `terraform init && terraform apply`
-3. `docker compose up -d`  (local Redpanda)
-4. `python -m ingest.producer`  (fetch sources -> Redpanda)
-5. `python -m ingest.dlt_pipeline`  (Redpanda -> Snowflake RAW)
-6. `cd dbt && dbt deps && dbt build --profiles-dir .`  -> populates mart_posting_lifecycle
+## Everyday run sequence
+```powershell
+cd "C:\Users\Teddy\Desktop\job-market-intel"
+.\load-env.ps1                      # env vars for terraform/dbt (new terminal each time)
+docker compose up -d                # Redpanda (if ingesting)
+python -m ingest.producer           # fetch -> Redpanda
+python -m ingest.dlt_pipeline       # Redpanda -> Snowflake RAW
+python -m ai.extract 1000           # Claude extraction (reads .env itself)
+python -m ai.fit_score 1000         # Claude fit-scoring
+cd dbt; dbt build                   # build all models + tests
+```
+Note: dbt/Python read Snowflake creds differently — dbt needs `.\load-env.ps1`; the Python
+scripts read `.env` directly via load_dotenv.
 
-## Next to build (no accounts needed)
-- Remaining marts: mart_market_trends, mart_salary_benchmarks (pure SQL).
-- Phase 4: AI extraction + fit-scoring (then mart_active_jobs, mart_skill_demand).
-- Phases 5-10: Elementary, Dagster, BI/serving, ML predictor, v2 self-serve, integration.
+## Remaining phases
+5 Elementary data quality · 6 Dagster orchestration · 7 Evidence + Streamlit serving ·
+8 Snowpark ML ghost-job predictor · 9 v2 self-serve (resume->matches) · 10 integration + deploy.
+
+## Known data-quality findings (good writeup material)
+- Adzuna descriptions are thin -> fewer skills extracted (coverage correlates with source).
+- "Other" role bucket is large -> federal/non-data postings (USAJobs heavy).
+- Skill aliases normalized via seed (GCP/Google Cloud Platform, Spark/Apache Spark).

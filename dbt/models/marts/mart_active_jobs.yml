@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: mart_active_jobs
+    description: "Fit-ranked active matches: scored target-role postings, best fit first, with lifecycle context."
+    columns:
+      - name: posting_key
+        data_tests: [unique, not_null]
+      - name: fit_score
+        data_tests: [not_null]

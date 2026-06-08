@@ -23,6 +23,7 @@ select
     r.salary_min,
     r.salary_max,
     r.posted_at,
+    r.description,
 
     -- AI value wins; fall back to the rule-based remote flag, else 'unknown'
     coalesce(e.remote_type, case when r.remote then 'remote' end, 'unknown') as remote_type,
