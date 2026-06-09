@@ -155,7 +155,7 @@ def _write(cur, posting_key: str, ext: Extraction) -> None:
 def run(limit: int = 25, workers: int = 4) -> None:
     load_dotenv()
     # max_retries lets the SDK back off + retry the occasional 429 automatically.
-    client = anthropic.Anthropic(max_retries=5)  # thread-safe to share across workers
+    client = anthropic.Anthropic(max_retries=2)  # thread-safe to share across workers
     limiter = _RateLimiter(REQUESTS_PER_MINUTE)
     conn = _connect()
     cur = conn.cursor()

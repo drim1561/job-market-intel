@@ -124,7 +124,7 @@ def run(limit: int = 25, workers: int = 4) -> None:
     load_dotenv()
     with open(PROFILE_PATH, "r", encoding="utf-8") as f:
         profile = json.load(f)
-    client = anthropic.Anthropic(max_retries=5)
+    client = anthropic.Anthropic(max_retries=2)
     limiter = _RateLimiter(REQUESTS_PER_MINUTE)
     conn = _connect()
     cur = conn.cursor()

@@ -9,10 +9,25 @@ Working plan: `C:\Users\Teddy\.claude\plans\so-what-have-i-dapper-cookie.md`
 - **AI (Phase 4, COMPLETE):** `ai/extract.py` -> `RAW.JOB_ENRICHMENT` (skills/seniority/remote/role); `ai/fit_score.py` -> `RAW.JOB_FIT` (0-100 fit vs profile.json). Both Claude Haiku, rate-limited 45/min, concurrent, cached. dbt: `int_jobs_enriched`, `int_job_skills` (+ `skill_aliases` seed), `mart_skill_demand`, `mart_active_jobs` (fit-ranked matches).
 - Cortex SQL functions NOT available on trial -> AI runs via the Claude API.
 
-## Next up: Phase 6 (Dagster orchestration)
-Automate the manual run sequence (producer -> dlt -> dbt -> extract -> dbt -> fit_score -> dbt)
-on a schedule; the per-step caching makes re-runs cheap. Then Phase 7 (Evidence + Streamlit),
-Phase 8 (Snowpark ML predictor), Phase 9 (v2 self-serve).
+## Phase 6 complete: Dagster orchestration ✓ (lineage graph confirmed + green run)
+`orchestration/definitions.py` + `pyproject.toml`. Asset graph:
+
+```
+ingest_raw[raw_jobs/job_postings]
+  → dbt_pre_ai (stg + resolved + lifecycle + salary/market/ghost marts)
+  → ai_extraction[raw_jobs/job_enrichment]
+  → dbt_post_extract (int_jobs_enriched + int_job_skills + mart_skill_demand)
+  → ai_fit_scoring[raw_jobs/job_fit]
+  → dbt_final (mart_active_jobs)
+```
+
+Schedule: every 4 hours (America/New_York). Lineage graph verified in Dagster UI;
+end-to-end run confirmed green. Start with `dagster dev` → localhost:3000.
+
+## Next up: Phase 7 (Evidence + Streamlit serving)
+Build Evidence.dev pages (skill demand, salary benchmarks, remote ratio, ghost-job view)
+and `app/streamlit_app.py` (daily digest + fit-ranked matches + NL query).
+Then Phase 8 (Snowpark ML predictor), Phase 9 (v2 self-serve).
 
 ## Resuming in a new session
 Open the job-market-intel folder, then tell Claude: "Read STATUS.md and the plan at
@@ -26,6 +41,16 @@ source of truth.
 - Many roles cap at fit 72 because remote_type is "unknown" (thin Adzuna descriptions).
 
 ## Everyday run sequence
+
+**Via Dagster (Phase 6+):**
+```powershell
+cd "C:\Users\Teddy\Desktop\job-market-intel"
+.\load-env.ps1          # env vars (Snowflake + ANTHROPIC_API_KEY)
+docker compose up -d    # Redpanda (needed for ingest_raw asset)
+dagster dev             # opens UI at localhost:3000 — trigger job_market_pipeline
+```
+
+**Manual (fallback / one-off):**
 ```powershell
 cd "C:\Users\Teddy\Desktop\job-market-intel"
 .\load-env.ps1                      # env vars for terraform/dbt (new terminal each time)
@@ -40,7 +65,7 @@ Note: dbt/Python read Snowflake creds differently — dbt needs `.\load-env.ps1`
 scripts read `.env` directly via load_dotenv.
 
 ## Remaining phases
-5 Elementary data quality · 6 Dagster orchestration · 7 Evidence + Streamlit serving ·
+5 Elementary data quality · ~~6 Dagster orchestration~~ · 7 Evidence + Streamlit serving ·
 8 Snowpark ML ghost-job predictor · 9 v2 self-serve (resume->matches) · 10 integration + deploy.
 
 ## Known data-quality findings (good writeup material)
