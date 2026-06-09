@@ -1,0 +1,6 @@
+node_modules/
+.evidence/
+build/
+.svelte-kit/
+sources/jobs/connection.options.yaml
+*.db
