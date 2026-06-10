@@ -18,7 +18,7 @@ select
     round(100.0 * sum(case when ghost_suspected then 1 else 0 end) / count(*), 1)     as ghost_pct,
     round(avg(repost_count), 1)                                                       as avg_reposts,
     round(avg(days_span), 0)                                                          as avg_days_open
-from analytics.mart_posting_lifecycle
+from mart_posting_lifecycle
 where is_active
 ```
 
@@ -39,7 +39,7 @@ select
         else 'Other'
     end                     as reason,
     count(*)                as jobs
-from analytics.mart_posting_lifecycle
+from mart_posting_lifecycle
 where ghost_suspected = true
 group by 1
 order by jobs desc
@@ -61,7 +61,7 @@ select
     days_span,
     ghost_reason,
     url
-from analytics.mart_posting_lifecycle
+from mart_posting_lifecycle
 where ghost_suspected = true
   and is_active = true
 order by repost_count desc, days_span desc

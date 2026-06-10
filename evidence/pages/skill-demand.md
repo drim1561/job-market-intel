@@ -16,7 +16,7 @@ select
     de_postings,
     round(100.0 * ae_postings / nullif(postings, 0), 1) as ae_pct,
     round(100.0 * de_postings / nullif(postings, 0), 1) as de_pct
-from analytics.mart_skill_demand
+from mart_skill_demand
 order by postings desc
 ```
 
@@ -24,7 +24,7 @@ order by postings desc
 
 ```sql top25
 select skill, postings, ae_postings, de_postings
-from analytics.mart_skill_demand
+from mart_skill_demand
 order by postings desc
 limit 25
 ```
@@ -41,7 +41,7 @@ limit 25
 
 ```sql ae_vs_de
 select skill, ae_postings, de_postings
-from analytics.mart_skill_demand
+from mart_skill_demand
 where ae_postings + de_postings > 0
 order by (ae_postings + de_postings) desc
 limit 20

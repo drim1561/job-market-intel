@@ -11,13 +11,13 @@ select
     round(avg(fit_score), 1)                                                   as avg_fit_score,
     round(100.0 * sum(case when lower(remote_type) = 'remote' then 1 else 0 end)
           / nullif(count(*), 0), 1)                                            as remote_pct
-from analytics.mart_active_jobs
+from mart_active_jobs
 ```
 
 <BigValue data={summary} value="active_postings"   title="Active Postings" />
 <BigValue data={summary} value="hiring_companies"  title="Hiring Companies" />
 <BigValue data={summary} value="avg_fit_score"     title="Avg Fit Score" />
-<BigValue data={summary} value="remote_pct"        title="% Remote" fmt="0.0'%'" />
+<BigValue data={summary} value="remote_pct"        title="% Remote" fmt='0.0"%"' />
 
 ---
 
@@ -25,7 +25,7 @@ from analytics.mart_active_jobs
 
 ```sql top_skills
 select skill, postings, ae_postings, de_postings
-from analytics.mart_skill_demand
+from mart_skill_demand
 order by postings desc
 limit 15
 ```
@@ -47,7 +47,7 @@ select
     company,
     count(*)                      as open_roles,
     round(avg(fit_score), 0)      as avg_fit
-from analytics.mart_active_jobs
+from mart_active_jobs
 group by company
 order by open_roles desc
 limit 15
@@ -71,7 +71,7 @@ select
     active_postings,
     hiring_companies,
     round(remote_share * 100, 1) as remote_pct
-from analytics.mart_market_trends
+from mart_market_trends
 order by snapshot_date
 ```
 

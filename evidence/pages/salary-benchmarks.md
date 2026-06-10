@@ -18,7 +18,7 @@ select
     min_salary,
     max_salary,
     round(100.0 * n_with_salary / nullif(n_postings, 0), 0) as salary_coverage_pct
-from analytics.mart_salary_benchmarks
+from mart_salary_benchmarks
 order by role_category, remote_bucket
 ```
 
@@ -28,7 +28,7 @@ select
     sum(n_postings)               as total_postings,
     sum(n_with_salary)            as postings_with_salary,
     round(avg(median_salary), 0)  as blended_median
-from analytics.mart_salary_benchmarks
+from mart_salary_benchmarks
 where n_with_salary > 0
 group by role_category
 order by blended_median desc nulls last

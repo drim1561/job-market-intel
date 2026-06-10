@@ -40,6 +40,7 @@ data/
 # Dagster
 .dagster/
 tmp_dagster*/
+.tmp_dagster*/
 
 # Evidence
 reports/.evidence/

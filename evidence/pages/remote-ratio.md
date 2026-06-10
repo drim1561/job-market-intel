@@ -14,7 +14,7 @@ select
     remote_postings,
     round(remote_share * 100, 1)  as remote_pct,
     hiring_companies
-from analytics.mart_market_trends
+from mart_market_trends
 order by snapshot_date
 ```
 
