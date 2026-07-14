@@ -52,8 +52,8 @@ public traffic costs nothing in warehouse credits.
 | Warehouse | Snowflake |
 | Modeling | dbt (staging → intermediate → marts, tested) |
 | Applied AI | Claude API (skill/salary extraction, fit-scoring, digest, NL to SQL) |
-| ML | ghost-job / time-to-close predictor (scikit-learn / Snowpark) |
-| Serving | Evidence.dev (public report), Streamlit (self-serve) |
+| ML | planned: ghost-job / time-to-close predictor (scikit-learn / Snowpark) |
+| Serving | Evidence.dev (public report, in progress), Streamlit (self-serve, planned) |
 | Orchestration | Dagster |
 | Infra / quality / CI | Terraform, Elementary, dbt Cloud |
 
@@ -81,16 +81,16 @@ infra/         Terraform: warehouse, db, RAW + ANALYTICS schemas, role, credit-c
 
 ## Status
 
-Working end to end from ingest through AI fit-scoring; serving, orchestration, and the ML
-predictor are the next phases.
+Working end to end from ingest through AI fit-scoring, orchestrated by Dagster; serving and
+the ML predictor are the next phases.
 
 - [x] Multi-source ingest → Redpanda → dlt → Snowflake RAW (~1,061 postings to date)
 - [x] Terraform infra (XS warehouse, schemas, role, credit-cap monitor)
 - [x] dbt models: staging → resolution → lifecycle → marts, with tests
 - [x] Applied AI: Claude extraction + 0 to 100 profile fit-scoring (rate-limited, cached)
 - [ ] Elementary data-quality monitoring
-- [ ] Dagster orchestration of the run sequence
-- [ ] Evidence.dev market report + Streamlit self-serve app
+- [x] Dagster orchestration of the run sequence (asset lineage graph, 4-hour schedule, green end-to-end run)
+- [ ] Evidence.dev market report (first pages built) + Streamlit self-serve app
 - [ ] ML ghost-job / time-to-close predictor
 - [ ] v2 self-serve (paste resume → ranked matches) + deploy
 
