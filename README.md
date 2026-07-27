@@ -143,3 +143,8 @@ A few findings worth calling out (the kind of thing this project exists to surfa
 Pasted resumes in the (planned) self-serve app are processed in memory and never stored. The
 public report shows aggregate market stats; self-serve matches link out to original postings
 rather than republishing full job-description text. Respect each source's terms of use.
+
+---
+
+Built by **Daniel Rim**, Analytics Engineer / Data Engineer.
+[Portfolio](https://drim1561.github.io/) · [LinkedIn](https://www.linkedin.com/in/daniel-rim)
